@@ -1,0 +1,33 @@
+parameters:
+    mindy.orion_crm.access_token: ''
+
+services:
+    mindy.bundle.orion_crm.dispatcher.registry:
+        class: OrionCrm\Bundle\OrionCrmBundle\Dispatcher\Registry
+
+    mindy.bundle.orion_crm.api:
+        class: Orion\Component\Client\Factory
+        arguments:
+            $token: '%mindy.orion_crm.access_token%'
+            $version: 'v1'
+            $endpoint: 'http://localhost:4000'
+
+    mindy.bundle.orion_crm.event_listener:
+        class: OrionCrm\Bundle\OrionCrmBundle\EventListener\OrionCrmListener
+        arguments:
+            - '@mindy.bundle.orion_crm.api'
+            - "@mindy.bundle.orion_crm.dispatcher.registry"
+        tags:
+            - { name: kernel.event_listener, method: onEvent, event: orion_crm.event }
+
+    mindy.bundle.orion_crm.form.orion_crm_settings:
+        class: OrionCrm\Bundle\OrionCrmBundle\Form\Settings\OrionCrmSettingsForm
+        tags:
+            - { name: form.type }
+
+    mindy.bundle.orion_crm.orion_crm_settings:
+        class: OrionCrm\Bundle\OrionCrmBundle\Settings\OrionCrmSettings
+        arguments:
+            - '@mindy.bundle.orion_crm.form.orion_crm_settings'
+        tags:
+            - { name: settings, slug: orion_crm }
