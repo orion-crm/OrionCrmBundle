@@ -3,8 +3,11 @@
     "license": "proprietary",
     "autoload": {
         "psr-4": {
-            "OrionCrm\\Bundle\\OrionCrmBundle": "./"
-        }
+            "OrionCrm\\Bundle\\OrionCrmBundle\\": ""
+        },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
     },
     "require": {
     },
