@@ -1,0 +1,14 @@
+{
+    "name": "orion-crm/orion-crm-bundle",
+    "license": "proprietary",
+    "autoload": {
+        "psr-4": {
+            "OrionCrm\\Bundle\\OrionCrmBundle": "./"
+        }
+    },
+    "require": {
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.5"
+    }
+}
